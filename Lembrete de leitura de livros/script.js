@@ -2,6 +2,9 @@
 
 
 
+
+
+
 class CadastroDeLivros {
 
 
@@ -10,7 +13,7 @@ class CadastroDeLivros {
         this.livros = [];
         this.livro = {};
         this.contador = 0;
-        this.IdEdicao = null;
+        this.IdMarcado = null;
 
     }
 
@@ -21,48 +24,34 @@ class CadastroDeLivros {
         this.livro = {};
         this.livro.nome = nome;
         this.livro.pagina = pagina;
+        this.livro.lembrete = false;
     }
-
     salvar() {
-
         this.lerDados();
         if (this.validar()) {
-
             if (this.IdEdicao != null) {
-
                 for (let i = 0; i < this.livros.length; i++) {
-
                     if (this.livros[i].id == this.IdEdicao) {
-
-
                         this.livros[i].nome == this.livro.nome;
                         this.livros[i].pagina == this.livro.pagina;
                         this.IdEdicao = null;
-
-
                     }
                 }
-            }else {
+            } else {
                 this.livro.id = this.contador;
                 this.livros.push(this.livro);
                 this.contador++;
-
             }
             this.criarTabela();
-
         }
-
         this.limpar();
-
-
     }
-
     validar() {
         let mensagem = "";
         if (this.livro.nome == "") {
             mensagem += "O nome do livro deve ser preenchido."
         }
-        if (this.livro.pagina== "") {
+        if (this.livro.pagina == "") {
             mensagem += "A quantidade de paginas do livro devem ser preenchidas!!"
         }
 
@@ -72,26 +61,39 @@ class CadastroDeLivros {
 
         alert(mensagem + " ");
         return false;
-
-
     }
-
-
     limpar() {
 
         document.getElementById("nome").value = "";
         document.getElementById("pagina").value = "";
-
     }
-
-
-
     marcar(id) {
+       
+            for(let i = 0; i< this.livros.length; i++){
+                if(this.livros[i].id == id){
+
+                    this.IdMarcado=id;
+                    document.getElementById("nome").value = this.livros[i].nome;
+                    document.getElementById("pagina").value = this.livros[i].pagina;
+
+                    this.livros[i].lembrete = !this.livros[i].lembrete;
+             
+                }
+            }
+            this.criarTabela();
+    
+        }
+
+
+        cadastrarLembrete(){
+
+
+            
+        }
 
 
 
-      
-    }
+
     excluir(id) {
 
         if (window.confirm("Tem certeza que deseja excluir?!")) {
@@ -103,8 +105,6 @@ class CadastroDeLivros {
                 }
             }
         }
-
-
     }
 
 
@@ -115,44 +115,35 @@ class CadastroDeLivros {
         let tabela = document.getElementById("tabela");
         tabela.innerHTML = "";
 
+
+
         for (let i = 0; i < this.livros.length; i++) {
 
             let linha = tabela.insertRow();
-
             let celulaNome = linha.insertCell(0);
             let celulaPagina = linha.insertCell(1);
             let celulaImgMarcar = linha.insertCell(2);
             let celulaImgExcluir = linha.insertCell(3);
 
-
             let imagemMarcar = document.createElement("img");
             let imagemExcluir = document.createElement("img");
 
-
+            if (this.livros[i].lembrete) {
+                imagemMarcar.setAttribute("src", "img/checked.svg");
+            } else {
+                imagemMarcar.setAttribute("src", "img/check.svg");
+            }
+            imagemMarcar.setAttribute("onclick", `biblioteca.marcar(${this.livros[i].id})`);
+            celulaImgMarcar.appendChild(imagemMarcar);
 
             imagemExcluir.setAttribute("src", "img/delete.svg");
             imagemExcluir.setAttribute("onclick", `biblioteca.excluir(${this.livros[i].id})`);
-
-            let imagemMarcar = document.createElement("img");
-            if(this.livros[i].concluida){
-                imagemMarcar.setAttribute("src" , "img/checked.svg");
-            }else{
-                imagemMarcar.setAttribute("src" , "img/check.svg");
-            }
-            imagemMarcar.setAttribute("onclick", `biblioteca.marcar(${this.livros[i].id})`);
-
+            celulaImgExcluir.appendChild(imagemExcluir);
 
             celulaNome.innerHTML = this.livros[i].nome;
             celulaPagina.innerHTML = this.livros[i].pagina;
 
-            celulaImgMarcar.appendChild(imagemMarcar);
-            celulaImgExcluir.appendChild(imagemExcluir);
-            
-
-
-
-
-
+        
         }
 
     }
