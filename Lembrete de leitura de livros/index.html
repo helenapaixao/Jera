@@ -27,7 +27,8 @@
             <div class="card-acoes">
 
                     <img src="img/add.svg" onclick="biblioteca.salvar()">
-                    <button>Cadastrar Lembrete</button>
+
+                    <button class="card-acoes" onclick="biblioteca.cadastrarLembrete()">Cadastrar Lembrete</button>
             </div>
            
 
@@ -48,6 +49,24 @@
         </tbody>
     </table>
 
+    
+
+</div>
+<div>
+        <div class="card">
+                <h2 class="card-title"> Lembrete Cadastrado</h2>
+            <table class="tabela-livros">
+                <thead>
+                        <th>Nome do Livro</th>  
+                    <th>dia</th>
+                    <th>hora</th>
+                    <th></th>
+                  
+                </thead>
+                <tbody id="tabela">
+        
+                </tbody>
+            </table>
 </div>
 </body>
 
