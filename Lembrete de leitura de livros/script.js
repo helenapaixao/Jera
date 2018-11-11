@@ -1,6 +1,8 @@
 
 
 
+
+
 class CadastroDeLivros {
 
 
@@ -17,15 +19,9 @@ class CadastroDeLivros {
 
         let nome = document.getElementById("nome").value;
         let pagina = document.getElementById("pagina").value;
-
-
-
         this.livro = {};
-
         this.livro.nome = nome;
         this.livro.pagina = pagina;
-
-
     }
 
     salvar() {
@@ -91,17 +87,9 @@ class CadastroDeLivros {
 
 
 
-    editar(id) {
+    marcar(id) {
 
-        for (let i = 0; i < this.livros.length; i++) {
-            if (id == this.livros[i].id) {
-                this.IdEdicao = id;
-                document.getElementById("nome").value = this.livros[i].nome;
-                document.getElementById("pagina").value = this.livros[i].pagina;
-
-            }
-        }
-
+      
     }
     excluir(id) {
 
