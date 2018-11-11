@@ -2,7 +2,6 @@
 
 
 
-
 class CadastroDeLivros {
 
 
@@ -89,6 +88,8 @@ class CadastroDeLivros {
 
     marcar(id) {
 
+
+
       
     }
     excluir(id) {
@@ -120,26 +121,33 @@ class CadastroDeLivros {
 
             let celulaNome = linha.insertCell(0);
             let celulaPagina = linha.insertCell(1);
-            let celulaImgEditar = linha.insertCell(2);
+            let celulaImgMarcar = linha.insertCell(2);
             let celulaImgExcluir = linha.insertCell(3);
 
 
-            let imagemEditar = document.createElement("img");
+            let imagemMarcar = document.createElement("img");
             let imagemExcluir = document.createElement("img");
 
 
-            imagemEditar.setAttribute("src", "img/edit.svg");
-            imagemEditar.setAttribute("onclick", `biblioteca.editar(${this.livros[i].id})`);
 
             imagemExcluir.setAttribute("src", "img/delete.svg");
             imagemExcluir.setAttribute("onclick", `biblioteca.excluir(${this.livros[i].id})`);
+
+            let imagemMarcar = document.createElement("img");
+            if(this.livros[i].concluida){
+                imagemMarcar.setAttribute("src" , "img/checked.svg");
+            }else{
+                imagemMarcar.setAttribute("src" , "img/check.svg");
+            }
+            imagemMarcar.setAttribute("onclick", `biblioteca.marcar(${this.livros[i].id})`);
 
 
             celulaNome.innerHTML = this.livros[i].nome;
             celulaPagina.innerHTML = this.livros[i].pagina;
 
-            celulaImgEditar.appendChild(imagemEditar);
+            celulaImgMarcar.appendChild(imagemMarcar);
             celulaImgExcluir.appendChild(imagemExcluir);
+            
 
 
 
